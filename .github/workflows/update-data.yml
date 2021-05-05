@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout repo
         with:
-          ref: gh-pages
+          ref: theData
           token: ${{ secrets.REPO_TOKEN }}
       - name: Setup Python
         uses: actions/setup-python@v2
@@ -26,3 +26,4 @@ jobs:
         with:
           message: 'Update data/*.json stats'
           default_author: github_actions
+          branch: theData
