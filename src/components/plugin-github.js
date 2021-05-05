@@ -43,7 +43,7 @@ class PluginGitHubInfo extends React.Component {
           <Grid item>
               <Card className={ classes.card }>
                 <CardContent>
-                  <Link href={`https://github.com/${config.gitHubUser}`} target="_blank" rel="noopener" >
+                  <Link href={`${config.url}/issues/`} target="_blank" rel="noopener" >
                     <Typography variant="caption" color="textPrimary">Open Issues</Typography>
                     <Grid container>
                       <Grid item xs={12}>
