@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name : get commits
-        uses : jcblw/bash@master
+        uses : fnkr/github-action-git-bash@v1
         with:
           args : "git log $(git describe --abbrev=0 --tags $(git rev-list --tags --skip=2 --max-count=5))..HEAD --pretty=format:'%cs: %s' --no-merges > ./changelog.md"
       - name: Commit changes
