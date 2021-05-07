@@ -10,6 +10,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  
 jobs:
   gitlog-and-write:
     runs-on: ubuntu-latest
@@ -17,7 +18,7 @@ jobs:
       - name: get gitlog
         uses : fnkr/github-action-git-bash@v1
         with:
-          args: "['bash', '-c', 'git log $(git describe --abbrev=0 --tags $(git rev-list --tags --skip=2 --max-count=5))..HEAD --pretty=format:/'%cs: %s/' --no-merges > ./myfile.txt']"
+          args: "git log $(git describe --abbrev=0 --tags $(git rev-list --tags --skip=2 --max-count=5))..HEAD --pretty=format:'%cs: %s' --no-merges > ./myfile.txt"
       - name: write logfile
         uses: DamianReeves/write-file-action@v1.0
         with:
