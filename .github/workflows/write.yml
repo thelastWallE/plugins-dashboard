@@ -1,0 +1,4 @@
+action "Setup" {
+  uses = "jdickey/bash@master"
+  args = ["cat <<<$MY_VAR > file.csv"]
+}
