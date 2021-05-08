@@ -67,7 +67,7 @@ class VersionPieChart extends React.Component {
             dataKey="count" 
             nameKey="version"
             innerRadius="25%"
-            outerRadius="40%"
+            outerRadius="70%"
           >
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
