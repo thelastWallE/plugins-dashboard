@@ -62,7 +62,13 @@ class VersionPieChart extends React.Component {
     return (
       <ResponsiveContainer height={300} >
         <PieChart>
-          <Pie data={ this.props.versionData} dataKey="count" nameKey="version">
+          <Pie 
+            data={ this.props.versionData} 
+            dataKey="count" 
+            nameKey="version"
+            innerRadius=25%
+            outerRadius=40%
+          >
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
             ))}
