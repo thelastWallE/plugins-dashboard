@@ -28,6 +28,20 @@ const styles = theme => ({
   }
 });
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      //{`${(percent * 100).toFixed(0)}%`}
+      {`${(this.props.instances / this.props.totalInstances * 100).toFixed(1)}%`} 
+    </text>
+  );
+};
+
 class VersionPieTooltip extends React.Component {
   render() {
     const { classes } = this.props;
@@ -64,6 +78,8 @@ class VersionPieChart extends React.Component {
         <PieChart>
           <Pie 
             data={ this.props.versionData} 
+            cx="50%"
+            cy="50%"
             dataKey="count" 
             nameKey="version"
             innerRadius=25%
