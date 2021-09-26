@@ -35,9 +35,14 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-      {/* {`${(percent * 100).toFixed(0)}%`} */}
-      {`${(this.props.instances / this.props.totalInstances * 100).toFixed(1)}%`} 
+    <text 
+      x={x} 
+      y={y} 
+      fill="white" 
+      textAnchor={x > cx ? 'start' : 'end'} 
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
@@ -74,7 +79,7 @@ class VersionPieChart extends React.Component {
     for (var v of this.props.versionData) totalInstances += v.count;
 
     return (
-      <ResponsiveContainer height={300} >
+      <ResponsiveContainer height={300} width={300}>
         <PieChart>
           <Pie 
             data={ this.props.versionData} 
@@ -84,8 +89,8 @@ class VersionPieChart extends React.Component {
             nameKey="version"
             labelLine={false}
             label={renderCustomizedLabel}
-            innerRadius="25%"
-            outerRadius="80%"
+            innerRadius="10%"
+            outerRadius="90%"
           >
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
