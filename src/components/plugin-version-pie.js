@@ -29,10 +29,13 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, data}) => {
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index, data, totalInstances}) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  console.log(this.props.data.count[index])
+  console.log(this.props.totalInstances)
+
 
   return (
     <text 
@@ -77,6 +80,7 @@ class VersionPieChart extends React.Component {
   render() {
     var totalInstances = 0;
     for (var v of this.props.versionData) totalInstances += v.count;
+
 
     return (
       <ResponsiveContainer height={300} width={300}>
