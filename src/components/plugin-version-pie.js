@@ -40,8 +40,9 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       y={y} 
       fill="white" 
       textAnchor={x > cx ? 'start' : 'end'} 
+      dominantBaseline="central" 
     >
-      { `${(this.props.data.count[index] / this.props.data.totalInstances * 100).toFixed(1)}%` }
+      { `${(this.props.data.count[index] / this.props.totalInstances * 100).toFixed(1)}%` }
     </text>
   );
 };
@@ -90,6 +91,7 @@ class VersionPieChart extends React.Component {
             label={renderCustomizedLabel}
             innerRadius="10%"
             outerRadius="90%"
+            totalInstances={totalInstances}
           >
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
