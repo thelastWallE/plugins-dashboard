@@ -40,7 +40,6 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       y={y} 
       fill="white" 
       textAnchor={x > cx ? 'start' : 'end'} 
-      dominantBaseline="central"
     >
       { `${(this.props.data.count[index] / this.props.data.totalInstances * 100).toFixed(1)}%` }
     </text>
