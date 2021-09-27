@@ -30,7 +30,7 @@ const styles = theme => ({
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index, percent}) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 1.2;
+  const radius = innerRadius + (outerRadius - innerRadius) * 1.1;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -80,7 +80,7 @@ class VersionPieChart extends React.Component {
 
 
     return (
-      <ResponsiveContainer height={300} width={300}>
+      <ResponsiveContainer height={400} width={400}>
         <PieChart>
           <Pie 
             data={ this.props.versionData} 
@@ -91,7 +91,7 @@ class VersionPieChart extends React.Component {
             labelLine={false}
             label={renderCustomizedLabel}
             innerRadius="10%"
-            outerRadius="90%"
+            outerRadius="80%"
           >
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
