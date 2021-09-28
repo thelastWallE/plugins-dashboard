@@ -39,7 +39,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, nam
     <text 
       x={x} 
       y={y} 
-      fill="white" 
+      fill="textPrimary" 
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
@@ -59,7 +59,7 @@ const CustomLabelLine = ({cx, cy, outerRadius, innerRadius, value, percent, midA
   if (percent > 0.03) { 
     return (
       <path 
-        stroke="white" 
+        stroke="textPrimary" 
         fill="none" 
         d={`M${sx},${sy}L${ex},${ey}`} />
       
@@ -112,10 +112,10 @@ class VersionPieChart extends React.Component {
             nameKey="version"
             labelLine={CustomLabelLine}
             label={renderCustomizedLabel}
-            innerRadius="50%"
-            outerRadius="70%"
+            innerRadius="30%"
+            outerRadius="60%"
           >
-            <Label value="Versions" offset={0} position="center" />
+            <Label value="Versions" fill="textPrimary" offset={0} position="center" />
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
             ))}

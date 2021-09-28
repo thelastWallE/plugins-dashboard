@@ -110,6 +110,7 @@ class VersionLineChart extends React.Component {
             />
           ))}
           <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors) }/>
+          <Legend />
         </LineChart>
       </ResponsiveContainer>
     )
