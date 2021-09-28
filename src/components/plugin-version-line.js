@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, colors}) => {
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name}, colors) => {
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -43,7 +43,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     <text 
       x={x} 
       y={y} 
-      fill={ colors[name] }
+      fill={ colors[index] }
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
@@ -75,8 +75,7 @@ class VersionLineTooltip extends React.Component {
                 nameKey="version" 
                 isAnimationActive={false} 
                 labelLine={false} 
-                label={renderCustomizedLabel} 
-                colors={ this.props.versionColors }
+                label={renderCustomizedLabel(this.props.versionColors)} 
               >
                 { versionData.map((version, index)=> (
                   <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
