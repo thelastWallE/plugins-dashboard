@@ -33,6 +33,25 @@ const styles = theme => ({
   }
 });
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, data, midAngle, innerRadius, outerRadius, index}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text 
+      x={x} 
+      y={y} 
+      fill="white" 
+      textAnchor={x > cx ? 'start' : 'end'} 
+      dominantBaseline="central" 
+    >
+      {`${data.version[index]}`}
+    </text>
+  );
+};
+
 
 class VersionLineTooltip extends React.Component {
   render() {
@@ -50,9 +69,13 @@ class VersionLineTooltip extends React.Component {
           <Typography variant="caption" color="textSecondary">{ data.date }</Typography>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
             <PieChart width={250} height={250} >
-              <Pie data={ versionData} dataKey="count" nameKey="version" isAnimationActive={false}>
-                { versionData.map((version, index)=> (
-                  <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
+              <Pie 
+                data={ versionData} 
+                dataKey="count" 
+                nameKey="version" 
+                isAnimationActive={false}>
+                  { versionData.map((version, index)=> (
+                    <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
                 ))}
               </Pie>
             </PieChart>
