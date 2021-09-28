@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { 
   PieChart,
   Pie,
+  Label,
   Cell,
   Tooltip,
   Legend,
