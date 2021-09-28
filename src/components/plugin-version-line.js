@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, name, midAngle, innerRadius, outerRadius, percent}) => {
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, name}) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -47,7 +47,7 @@ const renderCustomizedLabel = ({ cx, cy, name, midAngle, innerRadius, outerRadiu
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
-      {percent < 0.05 ? '' : {name}}
+      {percent < 0.05 ? '' : `${name}`}
     </text>
   );
 };
