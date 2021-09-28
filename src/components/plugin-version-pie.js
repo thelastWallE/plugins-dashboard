@@ -42,7 +42,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, ind
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
-      {percent < 0.05 ? '' : `${(percent * 100).toFixed(0)}%`}
+      {percent < 0.03 ? '' : `${(percent * 100).toFixed(0)}%`}
     </text>
   );
 };
