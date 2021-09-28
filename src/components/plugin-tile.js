@@ -35,7 +35,7 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    width: "80vw",
+    width: "90vw",
   },
   chartAxis: {
   },
@@ -80,7 +80,7 @@ class PluginTile extends React.Component {
               <Typography>Instances</Typography>
               <Typography variant="h2">{ pluginData[this.props.plugin.id].total }</Typography>
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={4}>
             <Typography>Instances by Version (30 days)</Typography>
             <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
           </Grid>
@@ -88,7 +88,7 @@ class PluginTile extends React.Component {
             <Typography>Version History</Typography>
             <VersionLineChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={2}>
             <Typography>GitHub Info</Typography>
             <PluginGitHubInfo plugin={ this.props.plugin } />
           </Grid>
