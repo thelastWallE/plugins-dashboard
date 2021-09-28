@@ -43,7 +43,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     <text 
       x={x} 
       y={y} 
-      fill={ this.props.versionColors[name] }
+      fill={ colors[name] }
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
