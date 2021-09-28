@@ -73,9 +73,12 @@ class VersionLineTooltip extends React.Component {
                 data={ versionData} 
                 dataKey="count" 
                 nameKey="version" 
-                isAnimationActive={false}>
-                  { versionData.map((version, index)=> (
-                    <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
+                isAnimationActive={false} 
+                labelLine={false} 
+                label={renderCustomizedLabel} 
+              >
+                { versionData.map((version, index)=> (
+                  <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
                 ))}
               </Pie>
             </PieChart>
