@@ -67,9 +67,9 @@ class VersionLineTooltip extends React.Component {
       <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-          { versionData.map((version) => ( 
+          { versionData.map((version, index) => ( 
             <Typography variant="subtitle1">
-              Version: {version.version} Count: {version.count[version.version]}
+              Version: {version.version} Count: {version.count}
             </Typography>
           ))}
         </CardContent>
