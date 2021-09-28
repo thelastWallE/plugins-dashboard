@@ -38,8 +38,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
   const radius = 25 + innerRadius + (outerRadius - innerRadius);
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
   return (
+    
     <text 
       x={x} 
       y={y} 
@@ -66,22 +66,12 @@ class VersionLineTooltip extends React.Component {
     return (
       <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
-          <Typography variant="caption" color="textSecondary">{ data.date }</Typography>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-            <PieChart width={250} height={250} >
-              <Pie 
-                data={ versionData} 
-                dataKey="count" 
-                nameKey="version" 
-                isAnimationActive={false} 
-                labelLine={false} 
-                label={(item) => renderCustomizedLabel(item, this.props.versionColors)} 
-              >
-                { versionData.map((version, index)=> (
-                  <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
-                ))}
-              </Pie>
-            </PieChart>
+          { versionData.map((version) => ( 
+            <Typography variant="subtitle1">
+              Version: {version.version} Count: {version.count[version.version]}
+            </Typography>
+          ))}
         </CardContent>
       </Card>
     );

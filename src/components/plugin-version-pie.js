@@ -29,8 +29,8 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, index, percent}) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 1.1;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, index, percent}) => {
+  const radius = 25 + innerRadius + (outerRadius - innerRadius);
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -42,9 +42,30 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, ind
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central" 
     >
-      {percent < 0.03 ? '' : `${(percent * 100).toFixed(0)}%`}
+      {percent < 0.03 ? '' : `${name}`}
     </text>
   );
+};
+
+const CustomLabelLine = ({cx, cy, outerRadius, innerRadius, value, percent, midAngle}) => {
+  
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 0) * cos;
+  const sy = cy + (outerRadius + 0) * sin;
+  const ex = cx + (outerRadius + 20) * cos;
+  const ey = cy + (outerRadius + 20) * sin;
+  if (percent > 0.03) { 
+    return (
+      <path 
+        stroke="white" 
+        fill="none" 
+        d={`M${sx},${sy}L${ex},${ey}`} />
+      
+    );
+  } else {
+    return ('');
+  }
 };
 
 class VersionPieTooltip extends React.Component {
@@ -88,11 +109,12 @@ class VersionPieChart extends React.Component {
             cy="50%"
             dataKey="count" 
             nameKey="version"
-            labelLine={false}
+            labelLine={CustomLabelLine}
             label={renderCustomizedLabel}
-            innerRadius="10%"
+            innerRadius="50%"
             outerRadius="70%"
           >
+            <Label value="Versions" offset={0} position="center" />
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
             ))}
