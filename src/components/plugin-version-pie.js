@@ -30,39 +30,26 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, name, index, percent}) => {
-  const radius = 25 + innerRadius + (outerRadius - innerRadius);
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text 
-      x={x} 
-      y={y} 
-      fill="textPrimary" 
-      textAnchor={x > cx ? 'start' : 'end'} 
-      dominantBaseline="central" 
-    >
-      {percent < 0.03 ? '' : `${name}`}
-    </text>
-  );
-};
-
-const CustomLabelLine = ({cx, cy, outerRadius, innerRadius, value, percent, midAngle}) => {
+const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, percent, midAngle}) => {
   
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 0) * cos;
   const sy = cy + (outerRadius + 0) * sin;
-  const ex = cx + (outerRadius + 20) * cos;
-  const ey = cy + (outerRadius + 20) * sin;
-  if (percent > 0.03) { 
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 10;
+  const ey = my;
+  const textAnchor = cos >= 0 ? 'start' : 'end';
+
+  if (percent > 0.02) { 
     return (
-      <path 
-        stroke="textPrimary" 
-        fill="none" 
-        d={`M${sx},${sy}L${ex},${ey}`} />
-      
+      <>
+        <path stroke="textPrimary" fill="none" d={`M${sx},${sy}L${ex},${ey}`} />
+        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} dominantBaseline="central" fill="textPrimary">{`${name}`}</text>
+      </> 
     );
   } else {
     return ('');
@@ -110,7 +97,7 @@ class VersionPieChart extends React.Component {
             cy="50%"
             dataKey="count" 
             nameKey="version"
-            labelLine={CustomLabelLine}
+            labelLine={false}
             label={renderCustomizedLabel}
             innerRadius="30%"
             outerRadius="60%"
