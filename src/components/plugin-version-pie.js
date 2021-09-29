@@ -30,7 +30,7 @@ const styles = theme => ({
 });
 
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, percent, midAngle}) => {
+const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, percent, midAngle, index}, colors) => {
   
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
@@ -45,9 +45,8 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   if (percent > 0.02) { 
     return (
       <>
-        <path stroke="textPrimary" fill="none" d={`M${sx},${sy}L${ex},${ey}`} />
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
-        <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={colors[index]} fill="none" />
+        <circle cx={ex} cy={ey} r={2} fill={colors[index]} stroke="none" />
         <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} dominantBaseline="central" fill="textPrimary">{`${name}`}</text>
       </> 
     );
@@ -98,7 +97,7 @@ class VersionPieChart extends React.Component {
             dataKey="count" 
             nameKey="version"
             labelLine={false}
-            label={renderCustomizedLabel}
+            label={(item) => renderCustomizedLabel(item, this.props.versionColors)}
             innerRadius="30%"
             outerRadius="60%"
           >

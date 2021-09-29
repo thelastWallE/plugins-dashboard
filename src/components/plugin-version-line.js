@@ -5,6 +5,7 @@ import {
   Pie,
   Cell,
   LineChart,
+  Legend,
   Line,
   CartesianGrid,
   XAxis,
