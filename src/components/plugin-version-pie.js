@@ -45,8 +45,8 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   if (percent > 0.02) { 
     return (
       <>
-        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={colors[index]} fill="none" />
-        <circle cx={ex} cy={ey} r={2} fill={colors[index]} stroke="none" />
+        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke="textPrimary" fill="none" />
+        <circle cx={ex} cy={ey} r={2} fill="textPrimary" stroke="none" />
         <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} dominantBaseline="central" fill="textPrimary">{`${name}`}</text>
       </> 
     );
