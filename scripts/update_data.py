@@ -2,7 +2,7 @@ import json
 import datetime
 import urllib.request
 
-PLUGIN_STATS_URL = 'https://data.octoprint.org/export/plugin_stats_30d.json'
+PLUGIN_STATS_URL = 'https://data.octoprint.org/export/plugin_stats_7d.json'
 
 class DataUpdater:
     def __init__(self, config_path, stats_path, repo_path):
