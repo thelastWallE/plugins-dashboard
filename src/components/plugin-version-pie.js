@@ -36,9 +36,9 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 0) * cos;
   const sy = cy + (outerRadius + 0) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 10;
+  const mx = cx + (outerRadius + 15) * cos;
+  const my = cy + (outerRadius + 15) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 5;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const color = colors[name];
@@ -89,7 +89,7 @@ class VersionPieChart extends React.Component {
 
 
     return (
-      <ResponsiveContainer width={'99%'} height={400}>
+      <ResponsiveContainer width={'99%'} height={500}>
         <PieChart>
           <Pie 
             data={ this.props.versionData} 
@@ -107,7 +107,7 @@ class VersionPieChart extends React.Component {
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
             ))}
           </Pie>
-          <Legend align="left" verticalAlign="middle" layout="vertical" />
+          {/* <Legend align="left" verticalAlign="middle" layout="vertical" /> */}
           <Tooltip content={ (event) => RenderVersionPieTooltip(event, this.props.plugin.id, totalInstances, this.props.versionColors) }/>
         </PieChart>
       </ResponsiveContainer>
