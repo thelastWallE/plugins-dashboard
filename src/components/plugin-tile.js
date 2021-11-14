@@ -80,7 +80,7 @@ class PluginTile extends React.Component {
               <Typography>Instances</Typography>
               <Typography variant="h2">{ pluginData[this.props.plugin.id].total }</Typography>
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={5}>
             <Typography>Instances by Version (30 days)</Typography>
             <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
           </Grid>
