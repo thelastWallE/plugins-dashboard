@@ -36,9 +36,9 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 0) * cos;
   const sy = cy + (outerRadius + 0) * sin;
-  const mx = cx + (outerRadius + 15) * cos;
-  const my = cy + (outerRadius + 15) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 5;
+  const mx = cx + (outerRadius + 20) * cos;
+  const my = cy + (outerRadius + 20) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 7;
   const ey = my;
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const color = colors[name];
