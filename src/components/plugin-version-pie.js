@@ -43,7 +43,7 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const color = colors[name];
 
-  if (percent > 0.02) { 
+  if (percent > 0.005) { 
     return (
       <>
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={color} fill="none" />
