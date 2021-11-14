@@ -89,7 +89,7 @@ class VersionPieChart extends React.Component {
 
 
     return (
-      <ResponsiveContainer height={400} width={400}>
+      <ResponsiveContainer>
         <PieChart>
           <Pie 
             data={ this.props.versionData} 
