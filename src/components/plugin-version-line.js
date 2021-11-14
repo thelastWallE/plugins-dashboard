@@ -61,7 +61,7 @@ class VersionLineTooltip extends React.Component {
     var versionData = [];
 
     for (var v in data.versions) {
-      versionData.push({version: v, count: data.versions[v].instances});
+      versionData.push({version: v, count: data.versions[v].instances, percent: data.versions[v].instances / data.total * 100});
     }
 
     return (
@@ -70,7 +70,7 @@ class VersionLineTooltip extends React.Component {
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
           { versionData.map((version, index) => ( 
             <Typography variant="subtitle1">
-              Version: {version.version} Count: {version.count}
+              Version: {version.version} Count: {version.count} Percent: {version.percent}
             </Typography>
           ))}
         </CardContent>
