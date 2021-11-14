@@ -61,7 +61,8 @@ class VersionLineTooltip extends React.Component {
     var versionData = [];
 
     for (var v in data.versions) {
-      versionData.push({version: v, count: data.versions[v].instances, percent: data.versions[v].instances / data.total * 100});
+      let percent = data.versions[v].instances / data.total * 100;
+      versionData.push({version: v, count: data.versions[v].instances, percent: percent.toPrecision(3)});
     }
 
     return (
