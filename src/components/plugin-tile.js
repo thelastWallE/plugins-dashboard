@@ -74,10 +74,11 @@ class PluginTile extends React.Component {
 
     return (
       <Paper className={classes.paper} >
-        <Typography variant="h2">{ this.props.plugin.name }   Instances:{ pluginData[this.props.plugin.id].total }</Typography>
+        <Typography variant="h2">{ this.props.plugin.name }</Typography>
         <Grid container direction="row" justify="space-evenly" wrap="wrap" alignItems="flex-start">
           <Grid item xs={12} lg={4}>
             <Typography>Instances by Version (30 days)</Typography>
+            <Typography>Instances: { pluginData[this.props.plugin.id].total }</Typography>
             <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
           </Grid>
           <Grid item xs={12} lg={4}>
