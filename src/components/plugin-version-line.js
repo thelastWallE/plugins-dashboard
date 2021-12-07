@@ -5,6 +5,7 @@ import {
   Pie,
   Cell,
   LineChart,
+  Legend,
   Line,
   CartesianGrid,
   XAxis,
@@ -33,6 +34,25 @@ const styles = theme => ({
   }
 });
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name}, colors) => {
+  const radius = 25 + innerRadius + (outerRadius - innerRadius);
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  return (
+    
+    <text 
+      x={x} 
+      y={y} 
+      fill={ colors[index] }
+      textAnchor={x > cx ? 'start' : 'end'} 
+      dominantBaseline="central" 
+    >
+      {percent < 0.05 ? '' : `${name}`}
+    </text>
+  );
+};
+
 
 class VersionLineTooltip extends React.Component {
   render() {
@@ -41,21 +61,19 @@ class VersionLineTooltip extends React.Component {
     var versionData = [];
 
     for (var v in data.versions) {
-      versionData.push({version: v, count: data.versions[v].instances});
+      let percent = data.versions[v].instances / data.total * 100;
+      versionData.push({version: v, count: data.versions[v].instances, percent: percent.toPrecision(3)});
     }
 
     return (
       <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
-          <Typography variant="caption" color="textSecondary">{ data.date }</Typography>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-            <PieChart width={250} height={250} >
-              <Pie data={ versionData} dataKey="count" nameKey="version" isAnimationActive={false}>
-                { versionData.map((version, index)=> (
-                  <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
-                ))}
-              </Pie>
-            </PieChart>
+          { versionData.map((version, index) => ( 
+            <Typography variant="subtitle1">
+              Version: {version.version} Count: {version.count} Percent: {version.percent}
+            </Typography>
+          ))}
         </CardContent>
       </Card>
     );
@@ -76,7 +94,7 @@ class VersionLineChart extends React.Component {
   render() {
     const {theme} = this.props;
     return (
-      <ResponsiveContainer height={300}>
+      <ResponsiveContainer height={400}>
         <LineChart data={ pluginData[this.props.plugin.id].history }>
           <CartesianGrid strokeDasharray="5 5" stroke={ theme.palette.text.secondary }/>
           <XAxis dataKey="date" stroke={ theme.palette.text.primary }/>
@@ -94,6 +112,7 @@ class VersionLineChart extends React.Component {
             />
           ))}
           <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors) }/>
+          <Legend />
         </LineChart>
       </ResponsiveContainer>
     )

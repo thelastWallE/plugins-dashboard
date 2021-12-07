@@ -35,7 +35,7 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,
-    width: "80vw",
+    width: "95vw",
   },
   chartAxis: {
   },
@@ -75,21 +75,18 @@ class PluginTile extends React.Component {
     console.log(str);
     return (
       <Paper className={classes.paper} >
-        <Typography variant="h4">{ this.props.plugin.name }</Typography>
+        <Typography variant="h2">{ this.props.plugin.name }</Typography>
         <Grid container direction="row" justify="space-evenly" wrap="wrap" alignItems="flex-start">
-          <Grid item xs={12} lg={2}>
-              <Typography>Instances</Typography>
-              <Typography variant="h2">{ pluginData[this.props.plugin.id].total }</Typography>
-          </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={4}>
             <Typography>Instances by Version (30 days)</Typography>
+            <Typography>Instances: { pluginData[this.props.plugin.id].total }</Typography>
             <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
           </Grid>
           <Grid item xs={12} lg={4}>
             <Typography>Version History</Typography>
             <VersionLineChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={2}>
             <Typography>GitHub Info</Typography>
             <PluginGitHubInfo plugin={ this.props.plugin } />
           </Grid>
