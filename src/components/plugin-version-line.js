@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { 
+import {
   PieChart,
   Pie,
   Cell,
@@ -34,26 +34,6 @@ const styles = theme => ({
   }
 });
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name}, colors) => {
-  const radius = 25 + innerRadius + (outerRadius - innerRadius);
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-  return (
-    
-    <text 
-      x={x} 
-      y={y} 
-      fill={ colors[index] }
-      textAnchor={x > cx ? 'start' : 'end'} 
-      dominantBaseline="central" 
-    >
-      {percent < 0.05 ? '' : `${name}`}
-    </text>
-  );
-};
-
-
 class VersionLineTooltip extends React.Component {
   render() {
     const {classes, data } = this.props;
@@ -69,10 +49,29 @@ class VersionLineTooltip extends React.Component {
       <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-          { versionData.map((version, index) => ( 
-            <Typography variant="subtitle1">
-              Version: {version.version} Count: {version.count} Percent: {version.percent}
-            </Typography>
+          <div class="row">
+            <div class="column">
+              <h2>Version</h2>
+            </div>
+            <div class="column">
+              <h2>Instances</h2>
+            </div>
+            <div class="column">
+              <h2>Percent</h2>
+            </div>
+          </div>
+          { versionData.map((version, index) => (
+              <div class="row">
+                <div class="column">
+                  <p>{version.version}</p>
+                </div>
+                <div class="column">
+                  <p>{version.count}</p>
+                </div>
+                <div class="column">
+                  <p>{version.percent}</p>
+                </div>
+              </div>
           ))}
         </CardContent>
       </Card>
@@ -100,7 +99,7 @@ class VersionLineChart extends React.Component {
           <XAxis dataKey="date" stroke={ theme.palette.text.primary }/>
           <YAxis stroke={ theme.palette.text.primary } />
           <Line name="Total" dataKey="total" strokeWidth={4} type="monotone" />
-          { this.props.versionData.map((version, index) => ( 
+          { this.props.versionData.map((version, index) => (
             <Line
               name={version.version}
               key={`line-version-${index}`}

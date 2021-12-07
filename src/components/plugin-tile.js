@@ -18,7 +18,7 @@ import VersionLineChart from '../components/plugin-version-line';
 import pluginData from '../../data/stats.json';
 
 
-var versionPercHist = {};
+/* var versionPercHist = {};
 
 for (var p in pluginData){
   versionPercHist[p] = [];
@@ -29,7 +29,7 @@ for (var p in pluginData){
     versions['total'] = d.total;
     versionPercHist[p].push(versions);
   }
-}
+} */
 
 const styles = theme => ({
   paper: {
@@ -62,16 +62,25 @@ class PluginTile extends React.Component {
 
     var versionData = [];
     var versionColors = {};
-    
-    for (var v in pluginData[this.props.plugin.id].versions) {
+
+    for (var v in pluginData[this.props.plugin.id].history) {
       versionData.push({version: v, count: pluginData[this.props.plugin.id].versions[v].instances});
+    }
+
+    for (var w in pluginData[this.props.plugin.id].history[pluginData[this.props.plugin.id].history.length - 1]) {
+      versionPieData.push({ version: w, count: pluginData[this.props.plugin.id].versions[w].instances });
     }
 
     for (var i in versionData) {
       var ci = i % baseColors.length;
       versionColors[versionData[i].version] = baseColors[ci];
     }
-    var str = JSON.stringify(versionData, null, 4);
+
+    for (var j in versionPieData) {
+      var cj = j % baseColors.length;
+      versionPieColors[versionPieData[j].version] = baseColors[cj];
+    }
+    var str = JSON.stringify(versionPieData, null, 3);
     console.log(str);
     return (
       <Paper className={classes.paper} >
@@ -80,7 +89,7 @@ class PluginTile extends React.Component {
           <Grid item xs={12} lg={4}>
             <Typography>Instances by Version (30 days)</Typography>
             <Typography>Instances: { pluginData[this.props.plugin.id].total }</Typography>
-            <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
+            <VersionPieChart versionData={ versionPieData } versionColors={ versionPieColors } plugin={ this.props.plugin} />
           </Grid>
           <Grid item xs={12} lg={4}>
             <Typography>Version History</Typography>
