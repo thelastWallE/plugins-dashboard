@@ -80,8 +80,9 @@ class PluginTile extends React.Component {
 
     for (var j in versionPieData) {
       var cj = j % baseColors.length;
-      versionPieColors[versionPieData[j].history[pluginData[this.props.plugin.id].history.length - 1].version] = baseColors[cj];
+      versionPieColors[versionPieData[j].version] = baseColors[cj];
     }
+
     var str = JSON.stringify(versionPieData, null, 3);
     console.log(str);
     return (
