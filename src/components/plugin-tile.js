@@ -71,7 +71,7 @@ class PluginTile extends React.Component {
       var ci = i % baseColors.length;
       versionColors[versionData[i].version] = baseColors[ci];
     }
-    var str = JSON.stringify(obj, null, 4);
+    var str = JSON.stringify(versionData, null, 4);
     console.log(str);
     return (
       <Paper className={classes.paper} >
