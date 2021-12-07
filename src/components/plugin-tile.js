@@ -61,7 +61,9 @@ class PluginTile extends React.Component {
     ];
 
     var versionData = [];
+    var versionPieData = [];
     var versionColors = {};
+    var versionPieColors = {};
 
     for (var v in pluginData[this.props.plugin.id].versions) {
       versionData.push({version: v, count: pluginData[this.props.plugin.id].versions[v].instances});
