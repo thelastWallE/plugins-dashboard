@@ -63,12 +63,12 @@ class PluginTile extends React.Component {
     var versionData = [];
     var versionColors = {};
 
-    for (var v in pluginData[this.props.plugin.id].history) {
+    for (var v in pluginData[this.props.plugin.id].versions) {
       versionData.push({version: v, count: pluginData[this.props.plugin.id].versions[v].instances});
     }
 
-    for (var w in pluginData[this.props.plugin.id].history[pluginData[this.props.plugin.id].history.length - 1]) {
-      versionPieData.push({ version: w, count: pluginData[this.props.plugin.id].versions[w].instances });
+    for (var w in pluginData[this.props.plugin.id].history[pluginData[this.props.plugin.id].history.length - 1].versions) {
+      versionPieData.push({ version: w, count: pluginData[this.props.plugin.id].history[pluginData[this.props.plugin.id].history.length - 1].versions[w].instances });
     }
 
     for (var i in versionData) {
@@ -78,7 +78,7 @@ class PluginTile extends React.Component {
 
     for (var j in versionPieData) {
       var cj = j % baseColors.length;
-      versionPieColors[versionPieData[j].version] = baseColors[cj];
+      versionPieColors[versionPieData[j].history[pluginData[this.props.plugin.id].history.length - 1].version] = baseColors[cj];
     }
     var str = JSON.stringify(versionPieData, null, 3);
     console.log(str);
