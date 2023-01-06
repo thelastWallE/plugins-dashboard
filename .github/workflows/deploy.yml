@@ -21,7 +21,7 @@ jobs:
           ref: main
           path: live
       - name: Setup NodeJS
-        uses: actions/setup-node@v2.4.0
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: '14'
       - name: Install npm and deps
