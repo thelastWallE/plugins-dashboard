@@ -1,6 +1,6 @@
-# The-EG's OctoPrint Plugins Dashboard
+# thelastWallE OctoPrint Plugins Dashboard
 
-This is the source for https://the-eg.github.io/plugins-dashboard .
+This is the source for  https://thelastWallE.github.io/plugins-dashboard .
 
 It uses NodeJS, React, Material-UI, Recharts and Gatsby. The site is built from the gh-pages branch and copied to the main branch where it is served using github pages.
 
@@ -39,7 +39,7 @@ This file includes all plugins which you want to show in your dashboard.
 
 You can use this to track your own plugins!
 
-1. Fork this repo
+1. Fork https://github.com/The-EG/plugins-dashboard repo
 3. In branch `the-eg`, replace the contents of each .json file in data/ with an empty object (`{}`)
 4. Update plugins-dashboard-config.json
 5. Setup a personal access token:

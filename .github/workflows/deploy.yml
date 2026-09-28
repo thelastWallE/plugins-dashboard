@@ -2,24 +2,26 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - the-eg
-
+      - theData
+      
+  workflow_dispatch:
+  
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.3.0
         with:
-          ref: the-eg
+          ref: theData
           path: src
       - name: Checkout current
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.3.0
         with:
           ref: main
           path: live
       - name: Setup NodeJS
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3.6.0
         with:
           node-version: '14'
       - name: Install npm and deps
@@ -36,7 +38,7 @@ jobs:
           rm -rf live/*
           cp -r src/public/* live
       - name: Commit & deploy
-        uses: EndBug/add-and-commit@v7
+        uses: EndBug/add-and-commit@v9.1.1
         with:
           cwd: "live"
           branch: main

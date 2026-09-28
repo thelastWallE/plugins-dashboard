@@ -5,9 +5,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 
-import { 
+import {
   PieChart,
   Pie,
+  Label,
   Cell,
   Tooltip,
   Legend,
@@ -27,6 +28,33 @@ const styles = theme => ({
   tooltipCard: {
   }
 });
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, percent, midAngle, index}, colors) => {
+
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 0) * cos;
+  const sy = cy + (outerRadius + 0) * sin;
+  const mx = cx + (outerRadius + 20) * cos;
+  const my = cy + (outerRadius + 20) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 7;
+  const ey = my;
+  const textAnchor = cos >= 0 ? 'start' : 'end';
+  const color = colors[name];
+
+  if (percent > 0.005) {
+    return (
+      <>
+        <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={color} fill="none" />
+        <circle cx={ex} cy={ey} r={2} fill={color} stroke="none"/>
+        <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} dominantBaseline="central" fill={color}>{`${name}`}</text>
+      </>
+    );
+  } else {
+    return ('');
+  }
+};
 
 class VersionPieTooltip extends React.Component {
   render() {
@@ -59,15 +87,27 @@ class VersionPieChart extends React.Component {
     var totalInstances = 0;
     for (var v of this.props.versionData) totalInstances += v.count;
 
+
     return (
-      <ResponsiveContainer height={300} >
+      <ResponsiveContainer width={'99%'} height={500}>
         <PieChart>
-          <Pie data={ this.props.versionData} dataKey="count" nameKey="version">
+          <Pie
+            data={ this.props.versionData}
+            cx="50%"
+            cy="50%"
+            dataKey="count"
+            nameKey="version"
+            labelLine={false}
+            label={(item) => renderCustomizedLabel(item, this.props.versionColors)}
+            innerRadius="30%"
+            outerRadius="60%"
+          >
+            <Label value="Versions" fill="textPrimary" offset={0} position="center" />
             { this.props.versionData.map((version, index)=> (
               <Cell key={`pie-version-${index}`} fill={ this.props.versionColors[version.version] } />
             ))}
           </Pie>
-          <Legend align="left" verticalAlign="middle" layout="vertical" />
+          {/* <Legend align="left" verticalAlign="middle" layout="vertical" /> */}
           <Tooltip content={ (event) => RenderVersionPieTooltip(event, this.props.plugin.id, totalInstances, this.props.versionColors) }/>
         </PieChart>
       </ResponsiveContainer>
