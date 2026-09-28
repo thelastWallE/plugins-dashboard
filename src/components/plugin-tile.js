@@ -77,13 +77,7 @@ class PluginTile extends React.Component {
       var ci = i % baseColors.length;
       versionColors[versionData[i].version] = baseColors[ci];
     }
-
-    for (var j in versionPieData) {
-      var cj = j % baseColors.length;
-      versionPieColors[versionPieData[j].version] = baseColors[cj];
-    }
-
-    var str = JSON.stringify(versionPieData, null, 3);
+    var str = JSON.stringify(obj, null, 4);
     console.log(str);
     return (
       <Paper className={classes.paper} >
@@ -92,7 +86,7 @@ class PluginTile extends React.Component {
           <Grid item xs={12} lg={4}>
             <Typography>Instances by Version (30 days)</Typography>
             <Typography>Instances: { pluginData[this.props.plugin.id].total }</Typography>
-            <VersionPieChart versionData={ versionPieData } versionColors={ versionPieColors } plugin={ this.props.plugin} />
+            <VersionPieChart versionData={ versionData } versionColors={ versionColors } plugin={ this.props.plugin} />            
           </Grid>
           <Grid item xs={12} lg={4}>
             <Typography>Version History</Typography>

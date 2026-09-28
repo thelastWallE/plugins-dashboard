@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 
-import { 
+import {
   PieChart,
   Pie,
   Label,
@@ -31,7 +31,7 @@ const styles = theme => ({
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, percent, midAngle, index}, colors) => {
-  
+
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 0) * cos;
@@ -43,13 +43,13 @@ const renderCustomizedLabel = ({cx, cy, outerRadius, innerRadius, value, name, p
   const textAnchor = cos >= 0 ? 'start' : 'end';
   const color = colors[name];
 
-  if (percent > 0.005) { 
+  if (percent > 0.005) {
     return (
       <>
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={color} fill="none" />
         <circle cx={ex} cy={ey} r={2} fill={color} stroke="none"/>
         <text x={ex + (cos >= 0 ? 1 : -1) * 5} y={ey} textAnchor={textAnchor} dominantBaseline="central" fill={color}>{`${name}`}</text>
-      </> 
+      </>
     );
   } else {
     return ('');
@@ -91,11 +91,11 @@ class VersionPieChart extends React.Component {
     return (
       <ResponsiveContainer width={'99%'} height={500}>
         <PieChart>
-          <Pie 
-            data={ this.props.versionData} 
+          <Pie
+            data={ this.props.versionData}
             cx="50%"
             cy="50%"
-            dataKey="count" 
+            dataKey="count"
             nameKey="version"
             labelLine={false}
             label={(item) => renderCustomizedLabel(item, this.props.versionColors)}
