@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - gh-pages
-  schedule:
-    - cron: "0 3 * * *"
   workflow_dispatch:
 
 jobs:
