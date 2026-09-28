@@ -70,7 +70,7 @@ class VersionLineTooltip extends React.Component {
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
           { versionData.map((version, index) => ( 
-            <Typography variant="subtitle1">
+            <Typography variant="subtitle1" noWrap>
               Version: {version.version} Count: {version.count} Percent: {version.percent}
             </Typography>
           ))}
