@@ -49,30 +49,36 @@ class VersionLineTooltip extends React.Component {
       <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-          <div class="row">
-            <div class="column">
-              <h2>Version</h2>
-            </div>
-            <div class="column">
-              <h2>Instances</h2>
-            </div>
-            <div class="column">
-              <h2>Percent</h2>
-            </div>
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <h2>Version</h2>
+                </th>
+                <th>
+                  <h2>Instances</h2>
+                </th>
+                <th>
+                  <h2>Percent</h2>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
           { versionData.map((version, index) => (
-              <div class="row">
-                <div class="column">
+              <tr key={`version-row-${index}`}>
+                <td>
                   <p>{version.version}</p>
-                </div>
-                <div class="column">
+                </td>
+                <td>
                   <p>{version.count}</p>
-                </div>
-                <div class="column">
+                </td>
+                <td>
                   <p>{version.percent}</p>
-                </div>
-              </div>
+                </td>
+              </tr>
           ))}
+            </tbody>
+          </table>
         </CardContent>
       </Card>
     );
