@@ -31,12 +31,26 @@ const styles = theme => ({
   chartAxis: {
   },
   tooltipCard: {
+    maxHeight: 300,
+    overflowY: 'auto',
+    cursor: 'pointer',
+  },
+  tooltipTable: {
+    borderSpacing: 0,
+  },
+  tooltipHeader: {
+    margin: 0,
+    padding: '2px 8px',
+  },
+  tooltipCell: {
+    margin: 0,
+    padding: '2px 8px',
   }
 });
 
 class VersionLineTooltip extends React.Component {
   render() {
-    const {classes, data } = this.props;
+    const {classes, data, versionColors, onPin } = this.props;
 
     var versionData = [];
 
@@ -46,20 +60,20 @@ class VersionLineTooltip extends React.Component {
     }
 
     return (
-      <Card variant="outlined" className={ classes.tooltipCard }>
+      <Card variant="outlined" className={ classes.tooltipCard } onClick={ onPin }>
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
-          <table>
+          <table className={ classes.tooltipTable }>
             <thead>
               <tr>
                 <th>
-                  <h2>Version</h2>
+                  <h2 className={ classes.tooltipHeader }>Version</h2>
                 </th>
                 <th>
-                  <h2>Instances</h2>
+                  <h2 className={ classes.tooltipHeader }>Instances</h2>
                 </th>
                 <th>
-                  <h2>Percent</h2>
+                  <h2 className={ classes.tooltipHeader }>Percent</h2>
                 </th>
               </tr>
             </thead>
@@ -67,13 +81,13 @@ class VersionLineTooltip extends React.Component {
           { versionData.map((version, index) => (
               <tr key={`version-row-${index}`}>
                 <td>
-                  <p>{version.version}</p>
+                  <p className={ classes.tooltipCell } style={{ color: versionColors[version.version] }}>{version.version}</p>
                 </td>
                 <td>
-                  <p>{version.count}</p>
+                  <p className={ classes.tooltipCell }>{version.count}</p>
                 </td>
                 <td>
-                  <p>{version.percent}</p>
+                  <p className={ classes.tooltipCell }>{version.percent}</p>
                 </td>
               </tr>
           ))}
@@ -87,17 +101,30 @@ class VersionLineTooltip extends React.Component {
 
 const StyledVersionLineTooltip = withStyles(styles, { withTheme: true })(VersionLineTooltip);
 
-const RenderVersionLineTooltip = ({active, payload, label}, pluginId, colors) => {
-  if (active && payload && payload.length) {
-    return <StyledVersionLineTooltip plugin={pluginId} data={ payload[0].payload } versionColors={colors}/>
+const RenderVersionLineTooltip = ({active, payload, label}, pluginId, colors, onPin, pinnedData) => {
+  const data = (active && payload && payload.length) ? payload[0].payload : pinnedData;
+  if (data) {
+    return <StyledVersionLineTooltip plugin={pluginId} data={ data } versionColors={colors} onPin={ () => onPin(data) }/>
   } else {
     return null;
   }
 };
 
 class VersionLineChart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { pinnedData: null };
+  }
+
+  handleTooltipClick = (payload) => {
+    this.setState(prevState => ({
+      pinnedData: prevState.pinnedData ? null : payload,
+    }));
+  };
+
   render() {
     const {theme} = this.props;
+    const { pinnedData } = this.state;
     return (
       <ResponsiveContainer height={400}>
         <LineChart data={ pluginData[this.props.plugin.id].history }>
@@ -116,7 +143,7 @@ class VersionLineChart extends React.Component {
               type="monotone"
             />
           ))}
-          <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors) }/>
+          <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors, this.handleTooltipClick, pinnedData) }/>
           <Legend />
         </LineChart>
       </ResponsiveContainer>
