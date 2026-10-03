@@ -25,12 +25,12 @@ jobs:
       - name: Fetch gh-pages
         run: git fetch origin gh-pages
 
-      - name: Merge gh-pages (keep data/ and plugin-version-line.js)
+      - name: Merge gh-pages (keep data/)
         run: |
           git merge --no-commit --no-ff -X theirs --allow-unrelated-histories origin/gh-pages || { echo "Merge failed"; git merge --abort; exit 1; }
-          git checkout HEAD -- data/ src/components/plugin-version-line.js
+          git checkout HEAD -- data/
           git add -A
-          git commit -m "Merge gh-pages into theData (keep data/ and table tooltip)" || echo "Nothing to merge"
+          git commit -m "Merge gh-pages into theData (keep data/)" || echo "Nothing to merge"
 
       - name: Push
         run: git push origin theData
