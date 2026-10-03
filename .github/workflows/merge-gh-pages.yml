@@ -1,0 +1,35 @@
+name: Merge gh-pages into theData
+
+on:
+  push:
+    branches:
+      - gh-pages
+  workflow_dispatch:
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout theData
+        uses: actions/checkout@v3
+        with:
+          ref: theData
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch gh-pages
+        run: git fetch origin gh-pages
+
+      - name: Merge gh-pages (keep data/ and plugin-version-line.js)
+        run: |
+          git merge --no-commit --no-ff -X theirs origin/gh-pages || { echo "Merge failed"; git merge --abort; exit 1; }
+          git checkout HEAD -- data/ src/components/plugin-version-line.js
+          git add -A
+          git commit -m "Merge gh-pages into theData (keep data/ and table tooltip)" || echo "Nothing to merge"
+
+      - name: Push
+        run: git push origin theData
