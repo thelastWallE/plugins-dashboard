@@ -50,7 +50,7 @@ const styles = theme => ({
 
 class VersionLineTooltip extends React.Component {
   render() {
-    const {classes, data, versionColors, onPin } = this.props;
+    const {classes, data, versionColors } = this.props;
 
     var versionData = [];
 
@@ -60,7 +60,7 @@ class VersionLineTooltip extends React.Component {
     }
 
     return (
-      <Card variant="outlined" className={ classes.tooltipCard } onClick={ onPin }>
+      <Card variant="outlined" className={ classes.tooltipCard }>
         <CardContent>
           <Typography variant="h4" color="textPrimary">{ data.total } Instances</Typography>
           <table className={ classes.tooltipTable }>
@@ -101,10 +101,10 @@ class VersionLineTooltip extends React.Component {
 
 const StyledVersionLineTooltip = withStyles(styles, { withTheme: true })(VersionLineTooltip);
 
-const RenderVersionLineTooltip = ({active, payload, label}, pluginId, colors, onPin, pinnedData) => {
+const RenderVersionLineTooltip = ({active, payload, label}, pluginId, colors, pinnedData) => {
   const data = (active && payload && payload.length) ? payload[0].payload : pinnedData;
   if (data) {
-    return <StyledVersionLineTooltip plugin={pluginId} data={ data } versionColors={colors} onPin={ () => onPin(data) }/>
+    return <StyledVersionLineTooltip plugin={pluginId} data={ data } versionColors={colors}/>
   } else {
     return null;
   }
@@ -116,10 +116,12 @@ class VersionLineChart extends React.Component {
     this.state = { pinnedData: null };
   }
 
-  handleTooltipClick = (payload) => {
-    this.setState(prevState => ({
-      pinnedData: prevState.pinnedData ? null : payload,
-    }));
+  handleChartClick = (nextState) => {
+    if (nextState && nextState.activePayload && nextState.activePayload.length) {
+      this.setState(prevState => ({
+        pinnedData: prevState.pinnedData ? null : nextState.activePayload[0].payload,
+      }));
+    }
   };
 
   render() {
@@ -127,7 +129,7 @@ class VersionLineChart extends React.Component {
     const { pinnedData } = this.state;
     return (
       <ResponsiveContainer height={400}>
-        <LineChart data={ pluginData[this.props.plugin.id].history }>
+        <LineChart data={ pluginData[this.props.plugin.id].history } onClick={ this.handleChartClick }>
           <CartesianGrid strokeDasharray="5 5" stroke={ theme.palette.text.secondary }/>
           <XAxis dataKey="date" stroke={ theme.palette.text.primary }/>
           <YAxis stroke={ theme.palette.text.primary } />
@@ -143,7 +145,7 @@ class VersionLineChart extends React.Component {
               type="monotone"
             />
           ))}
-          <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors, this.handleTooltipClick, pinnedData) }/>
+          <Tooltip content={ (event) => RenderVersionLineTooltip(event, this.props.plugin.id, this.props.versionColors, pinnedData) }/>
           <Legend />
         </LineChart>
       </ResponsiveContainer>
