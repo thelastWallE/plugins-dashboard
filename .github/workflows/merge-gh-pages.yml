@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout theData
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           ref: theData
           token: ${{ secrets.REPO_TOKEN }}
