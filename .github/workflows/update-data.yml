@@ -9,21 +9,20 @@ jobs:
     name: Run scripts/update_data.py
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v7
         name: Checkout repo
         with:
           ref: theData
           token: ${{ secrets.REPO_TOKEN }}
       - name: Setup Python
-        uses: actions/setup-python@v4.5.0
+        uses: actions/setup-python@v7
         with:
-          python-version: "3.13.2"
+          python-version: "3.13"
       - name: Run script
         run: |
           python3 scripts/update_data.py
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9.1.1
+        uses: EndBug/add-and-commit@v11
         with:
           message: 'Update data/*.json stats'
           default_author: github_actions
-          branch: theData
